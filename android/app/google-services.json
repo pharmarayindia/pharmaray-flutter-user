@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "287283300261",
+    "project_id": "pharmaray-prod",
+    "storage_bucket": "pharmaray-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287283300261:android:85152b978f34ab8bfc8a4c",
+        "android_client_info": {
+          "package_name": "com.pharmaray.pharmaray"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287283300261-9hg5ovfucfj2ue4g9o836k4jt0tc8rcd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pharmaray.pharmaray",
+            "certificate_hash": "02e6a17f1839e95da33265e555071624b4558d05"
+          }
+        },
+        {
+          "client_id": "287283300261-rgk13162koag2ueksvd2ooh6t5i7b86f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOiAz23bbQ0J1l5QokljoEtpZFjr2xS_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287283300261-rgk13162koag2ueksvd2ooh6t5i7b86f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,14 @@
+export 'add_address/add_address.dart';
+export 'add_reminder/add_reminder.dart';
+export 'address_book/address_book.dart';
+export 'cart_and_checkout/cart_and_checkout.dart';
+export 'contact_pharmacy/contact_pharmacy.dart';
+export 'home/home.dart';
+export 'login/login.dart';
+export 'medicine_list_and_details/medicine_list_and_details.dart';
+export 'on_boarding/on_boarding.dart';
+export 'orders/orders.dart';
+export 'pathology_test/pathology_test.dart';
+export 'search_medicines/search_medicines.dart';
+export 'splash/splash.dart';
+export 'upload_prescription/upload_prescription.dart';

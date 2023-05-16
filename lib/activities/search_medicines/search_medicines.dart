@@ -1,0 +1,1 @@
+export 'search_medicines_view.dart';

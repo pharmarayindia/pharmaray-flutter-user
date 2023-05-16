@@ -1,6 +1,0 @@
-package `in`.pharmaray.pharmaray_flutter
-
-import io.flutter.embedding.android.FlutterActivity
-
-class MainActivity: FlutterActivity() {
-}

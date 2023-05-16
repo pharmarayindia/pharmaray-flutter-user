@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Pharmaray Flutter</string>
+	<string>PharmaRay</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>pharmaray_flutter</string>
+	<string>pharmaray</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -24,16 +24,34 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+    	<false/>
+    	<key>FirebaseAutomaticScreenReportingEnabled</key>
+    	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+    	<string>This app needs camera access to scan QR codes, And Take photos, videos</string>
+    	<key>NSDocumentsFolderUsageDescription</key>
+    	<string>App wants to access your documents folder</string>
+    	<key>NSDownloadsFolderUsageDescription</key>
+    	<string>App wants to access your downloads folder</string>
+    	<key>NSMicrophoneUsageDescription</key>
+    	<string>This app needs microphone access for video recording</string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+    	<string>This app needs photo library access to view and add images and videos</string>
+    	<key>NSAppleMusicUsageDescription</key>
+    	<string>This app needs music usage access to play system video audio</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -43,5 +61,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>
