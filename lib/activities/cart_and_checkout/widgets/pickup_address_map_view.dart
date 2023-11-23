@@ -88,8 +88,8 @@ class _PickupAddressMapViewState extends State<PickupAddressMapView> {
                       i < homeController.cartResponse!.data!.length;
                       i++) {
                     list.add({
-                      'productId': num.parse(
-                          '${homeController.cartResponse?.data?[i].productId}'),
+                      'productId':
+                          '${homeController.cartResponse?.data?[i].productId}',
                       'quantity': num.parse(
                           '${homeController.cartResponse?.data?[i].quantity}')
                     });

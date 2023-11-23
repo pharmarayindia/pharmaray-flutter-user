@@ -67,8 +67,8 @@ class ApiClient {
   }
 
   Future<ResponseModel> updateCartItems(
-      {required num productId,
-      required num quantity,
+      {required String productId,
+      required int quantity,
       required bool isLoading}) async {
     var token = GetStorage('appData').read<String>(AppConstants.token);
     var data = {'productId': productId, 'quantity': quantity};
@@ -82,7 +82,7 @@ class ApiClient {
   }
 
   Future<ResponseModel> addToRecentlyViewed(
-      {required num productId, required bool isLoading}) async {
+      {required String productId, required bool isLoading}) async {
     var token = GetStorage('appData').read<String>(AppConstants.token);
     var data = {'productId': productId};
     var response = await apiWrapper.makeRequest(

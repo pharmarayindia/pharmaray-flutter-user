@@ -167,7 +167,7 @@ class LoginController extends GetxController {
         email: emailId,
         fullName: fullName,
         dob: dob.isNotEmpty
-            ? Jiffy(dob, 'dd/MM/yyyy').format('yyyy-MM-dd')
+            ? Jiffy.parse(dob, pattern: 'dd/MM/yyyy',isUtc: true).format(pattern: 'yyyy-MM-dd')
             : null,
         city: '${selectedCity?.name}',
         area: '${selectedArea?.name}',

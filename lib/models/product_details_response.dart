@@ -124,7 +124,7 @@ class ProductDetailData {
                 ),
               )
             : [],
-        cartQuantity: json['cartQuantity'] as num? ?? 0,
+        cartQuantity: json['cartQuantity'] as int? ?? 0,
       );
 
   final String? productId;
@@ -153,7 +153,7 @@ class ProductDetailData {
   // final List<dynamic> images;
   final List<Suggest>? suggest;
   final List<Suggest>? itemSuggest;
-  final num? cartQuantity;
+  final int? cartQuantity;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'productId': productId == null ? null : productId,

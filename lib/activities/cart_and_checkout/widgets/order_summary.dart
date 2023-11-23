@@ -93,7 +93,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                                                   '${_controller.orderDetailsResponse?.data?.orderProducts?[index].quantity}') ??
                                               1;
                                           var price = num.tryParse(
-                                                  '${_controller.orderDetailsResponse?.data?.orderProducts?[index].listedPrice}') ??
+                                                  '${_controller.orderDetailsResponse?.data?.orderProducts?[index].listedPrice?.toStringAsFixed(2)}') ??
                                               1;
                                           var total = qty * price;
                                           return Card(
@@ -111,8 +111,8 @@ class _OrderSummaryState extends State<OrderSummary> {
                                                   SizedBox(
                                                     width: Dimens.sixty,
                                                     height: Dimens.sixty,
-                                                    child: Image.asset(
-                                                      AssetConstants.dummy3,
+                                                    child: _controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image == null ? Image.asset(AssetConstants.dummy4) : Image.network(
+                                                      '${_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image}',
                                                       width: Dimens.fifteen,
                                                       height: Dimens.fifteen,
                                                     ),
@@ -206,7 +206,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '₹${_controller.orderDetailsResponse?.data?.subTotal}',
+                                  '₹${_controller.orderDetailsResponse?.data?.subTotal?.toStringAsFixed(2)}',
                                   style: Styles.orderSummaryBlack14,
                                 ),
                               ],
@@ -221,7 +221,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                                 ),
                                 const Spacer(),
                                 Text(
-                                  '-₹${_controller.orderDetailsResponse?.data?.discountTotal}',
+                                  '-₹${_controller.orderDetailsResponse?.data?.discountTotal?.toStringAsFixed(2)}',
                                   style: Styles.orderSummaryBlack14,
                                 ),
                               ],
@@ -260,7 +260,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                                 Row(
                                   children: [
                                     Text(
-                                      '₹${_controller.orderDetailsResponse?.data?.grandTotal}',
+                                      '₹${_controller.orderDetailsResponse?.data?.grandTotal?.toStringAsFixed(2)}',
                                       style: Styles.orderSummaryBoldBlack16,
                                     ),
                                   ],

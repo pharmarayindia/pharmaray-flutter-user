@@ -79,8 +79,8 @@ class _StoreWidgetState extends State<StoreWidget> {
                                   i < _controller.cartResponse!.data!.length;
                                   i++) {
                                 list.add({
-                                  'productId': num.parse(
-                                      '${_controller.cartResponse?.data?[i].productId}'),
+                                  'productId':
+                                      '${_controller.cartResponse?.data?[i].productId}',
                                   'quantity': num.parse(
                                       '${_controller.cartResponse?.data?[i].quantity}')
                                 });
@@ -543,8 +543,8 @@ class _StoreWidgetState extends State<StoreWidget> {
                                                           ],
                                                         ),
                                                         const Spacer(),
-                                                        '${_controller.storePageList[index].cartQuantity}' ==
-                                                                '0'
+                                                        _controller.storePageList[index].cartQuantity ==
+                                                                0
                                                             ? InkWell(
                                                                 onTap:
                                                                     () async {
@@ -552,7 +552,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                                                                       productId:
                                                                           '${_controller.storePageList[index].productId}',
                                                                       cartQuantity:
-                                                                          '${_controller.storePageList[index].cartQuantity}',
+                                                                          _controller.storePageList[index].cartQuantity ?? 0,
                                                                       isAddition:
                                                                           true);
                                                                   if (res ==
@@ -622,7 +622,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                                                                             productId:
                                                                                 '${_controller.storePageList[index].productId}',
                                                                             cartQuantity:
-                                                                                '${_controller.storePageList[index].cartQuantity}',
+                                                                                _controller.storePageList[index].cartQuantity ?? 0,
                                                                             isAddition:
                                                                                 false);
                                                                         if (res ==
@@ -670,7 +670,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                                                                             productId:
                                                                                 '${_controller.storePageList[index].productId}',
                                                                             cartQuantity:
-                                                                                '${_controller.storePageList[index].cartQuantity}',
+                                                                                _controller.storePageList[index].cartQuantity ?? 0,
                                                                             isAddition:
                                                                                 true);
                                                                         if (res ==

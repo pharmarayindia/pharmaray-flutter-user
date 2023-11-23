@@ -11,10 +11,10 @@ class SelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
-  int selectedPaymentMethod = -1;
+  int selectedPaymentMethod = 0;
   var homeController = Get.find<HomeController>();
   List<String> listOfMethods = [
-    // StringConstants.online,
+    StringConstants.online,
     StringConstants.cashOnDelivery
   ];
   late Razorpay razorpay;
@@ -97,7 +97,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
             ListView.builder(
               shrinkWrap: true,
               itemCount: listOfMethods.length,
-              padding: Dimens.edgeInsets20,
+              padding: Dimens.edgeInsets15,
               itemBuilder: (context, index) => Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,6 +108,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                           width: Dimens.twentyFour,
                           height: Dimens.twentyFour,
                           child: Radio(
+                            activeColor: AppColors.primaryColor,
                             value: index,
                             groupValue: selectedPaymentMethod,
                             onChanged: (value) {
@@ -166,11 +167,11 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                 padding: Dimens.edgeInsets10_0_10_0,
                 buttonColor: AppColors.primaryColor,
                 onTap: () async {
-                  // if (selectedPaymentMethod != -1 &&
-                  //     selectedPaymentMethod == 0) {
-                  //   Utility.showLoadingDialog();
-                  //   openCheckout(description: StringConstants.online);
-                  // } else {
+                  if (selectedPaymentMethod != -1 &&
+                      selectedPaymentMethod == 0) {
+                    Utility.showLoadingDialog();
+                    openCheckout(description: StringConstants.online);
+                  } else {
                     var res = await homeController.transactions(
                         loading: true,
                         paymentResponse: '',
@@ -187,7 +188,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                             orderId: (data['data']['id']).toString());
                       }
                     }
-                  // }
+                  }
                 },
               ),
             ),

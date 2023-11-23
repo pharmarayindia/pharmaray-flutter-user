@@ -9,7 +9,7 @@ class MedicineList extends StatefulWidget {
 
 class _MedicineListState extends State<MedicineList> {
   var args = Get.arguments as String? ?? '';
-
+  RxInt? cartQuantity = 0.obs;
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white,
@@ -52,7 +52,8 @@ class _MedicineListState extends State<MedicineList> {
                         ],
                       ),
                       InkWell(
-                        onTap: (_controller.cartResponse != null &&
+                        onTap:
+                        (_controller.cartResponse != null &&
                                 _controller.cartResponse?.data != null &&
                                 _controller.cartResponse!.data!.isNotEmpty)
                             ? () async {
@@ -61,8 +62,8 @@ class _MedicineListState extends State<MedicineList> {
                                     i < _controller.cartResponse!.data!.length;
                                     i++) {
                                   list.add({
-                                    'productId': num.parse(
-                                        '${_controller.cartResponse?.data?[i].productId}'),
+                                    'productId':
+                                        '${_controller.cartResponse?.data?[i].productId}',
                                     'quantity': num.parse(
                                         '${_controller.cartResponse?.data?[i].quantity}')
                                   });
@@ -177,8 +178,8 @@ class _MedicineListState extends State<MedicineList> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset(
-                                        AssetConstants.dummy4,
+                                      Image.network(
+                                        '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}',
                                         width: Dimens.twenty,
                                         height: Dimens.twenty,
                                       ),
@@ -215,8 +216,8 @@ class _MedicineListState extends State<MedicineList> {
                                     children: [
                                       InkWell(
                                         onTap:
-                                            '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}' ==
-                                                    '0'
+                                            _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ==
+                                                    0
                                                 ? null
                                                 : () async {
                                                     var res = await _controller
@@ -224,7 +225,7 @@ class _MedicineListState extends State<MedicineList> {
                                                             productId:
                                                                 '${_controller.searchMedicineResponse?.data?[index].source?.productId}',
                                                             cartQuantity:
-                                                                '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}',
+                                                                _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                                             isAddition: false);
                                                     if (res == true) {
                                                       await _controller
@@ -244,6 +245,7 @@ class _MedicineListState extends State<MedicineList> {
                                                               widgetId:
                                                                   _controller
                                                                       .widgetId);
+
                                                     }
                                                   },
                                         child: SizedBox(
@@ -253,8 +255,8 @@ class _MedicineListState extends State<MedicineList> {
                                             AssetConstants.minus,
                                             width: Dimens.fifteen,
                                             color:
-                                                '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}' ==
-                                                        '0'
+                                                _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ==
+                                                        0
                                                     ? Colors.grey
                                                     : Colors.black,
                                           ),
@@ -262,6 +264,7 @@ class _MedicineListState extends State<MedicineList> {
                                       ),
                                       const Spacer(),
                                       Text(
+
                                         '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}',
                                         style: Styles.primary18Bold,
                                       ),
@@ -272,7 +275,7 @@ class _MedicineListState extends State<MedicineList> {
                                               productId:
                                                   '${_controller.searchMedicineResponse?.data?[index].source?.productId}',
                                               cartQuantity:
-                                                  '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}',
+                                                  _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                               isAddition: true);
                                           if (res == true) {
                                             await _controller.getCartItems(

@@ -19,7 +19,7 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
           builder: (_controller) => SizedBox(
             width: Dimens.percentWidth(1),
             height: Dimens.percentHeight(1),
-            child: ListView(
+            child:  Obx(() =>  ListView(
               shrinkWrap: true,
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
@@ -49,26 +49,26 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                       ),
                       InkWell(
                         onTap: (_controller.cartResponse != null &&
-                                _controller.cartResponse?.data != null &&
-                                _controller.cartResponse!.data!.isNotEmpty)
+                            _controller.cartResponse?.data != null &&
+                            _controller.cartResponse!.data!.isNotEmpty)
                             ? () async {
-                                var list = <dynamic>[];
-                                for (var i = 0;
-                                    i < _controller.cartResponse!.data!.length;
-                                    i++) {
-                                  list.add({
-                                    'productId': num.parse(
-                                        '${_controller.cartResponse?.data?[i].productId}'),
-                                    'quantity': num.parse(
-                                        '${_controller.cartResponse?.data?[i].quantity}')
-                                  });
-                                }
-                                await _controller.getCartTotals(
-                                    loading: true,
-                                    couponCode: null,
-                                    list: list);
-                                RouteManagement.goToCartAndCheckout();
-                              }
+                          var list = <dynamic>[];
+                          for (var i = 0;
+                          i < _controller.cartResponse!.data!.length;
+                          i++) {
+                            list.add({
+                              'productId': num.parse(
+                                  '${_controller.cartResponse?.data?[i].productId}'),
+                              'quantity': num.parse(
+                                  '${_controller.cartResponse?.data?[i].quantity}')
+                            });
+                          }
+                          await _controller.getCartTotals(
+                              loading: true,
+                              couponCode: null,
+                              list: list);
+                          RouteManagement.goToCartAndCheckout();
+                        }
                             : RouteManagement.goToCartAndCheckout,
                         child: SizedBox(
                           width: Dimens.thirtyFive,
@@ -84,22 +84,22 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                                 ),
                               ),
                               (_controller.cartResponse != null &&
-                                      _controller.cartResponse?.data != null &&
-                                      _controller
-                                          .cartResponse!.data!.isNotEmpty)
+                                  _controller.cartResponse?.data != null &&
+                                  _controller
+                                      .cartResponse!.data!.isNotEmpty)
                                   ? Align(
-                                      alignment: Alignment.topRight,
-                                      child: CircleAvatar(
-                                        radius: Dimens.eight,
-                                        backgroundColor: Colors.red,
-                                        child: Center(
-                                          child: Text(
-                                            '${_controller.cartResponse?.data?.length}',
-                                            style: Styles.white12,
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                alignment: Alignment.topRight,
+                                child: CircleAvatar(
+                                  radius: Dimens.eight,
+                                  backgroundColor: Colors.red,
+                                  child: Center(
+                                    child: Text(
+                                      '${_controller.cartResponse?.data?.length}',
+                                      style: Styles.white12,
+                                    ),
+                                  ),
+                                ),
+                              )
                                   : Dimens.box0,
                             ],
                           ),
@@ -130,7 +130,7 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                           itemBuilder: (context, index) => SizedBox(
                             width: Dimens.percentWidth(.7),
                             height: Dimens.percentHeight(.3),
-                            child: Image.asset(AssetConstants.dummy3),
+                            child: Image.network(AssetConstants.dummy3),
                           ),
                           onPageChanged: (value) {
                             _controller.currentItemPage = value;
@@ -148,7 +148,7 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                               activeSize: Size(Dimens.five, Dimens.five),
                             ),
                             dotsCount: 5,
-                            position: _controller.currentItemPage.toDouble(),
+                            position: _controller.currentItemPage.toInt(),
                           ),
                         ],
                       ),
@@ -170,46 +170,46 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                             height: Dimens.thirtyFive,
                             decoration: BoxDecoration(
                               border:
-                                  Border.all(color: AppColors.lightGreyColor),
+                              Border.all(color: AppColors.lightGreyColor),
                               borderRadius: BorderRadius.circular(Dimens.five),
                             ),
                             child: Padding(
                               padding: Dimens.edgeInsets20_0_20_0,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
                                     onTap:
-                                        '${_controller.productDetailsResponse?.data?[0].cartQuantity}' !=
-                                                '0'
-                                            ? () async {
-                                                var res = await _controller
-                                                    .updateItemInCart(
-                                                        productId: '$args',
-                                                        cartQuantity:
-                                                            '${_controller.productDetailsResponse?.data?[0].cartQuantity}',
-                                                        isAddition: false);
-                                                if (res == true) {
-                                                  await _controller
-                                                      .getStorePageList(
-                                                          searchText: '',
-                                                          isLoading: true,
-                                                          skip: _controller
-                                                              .storeSkip,
-                                                          limit: _controller
-                                                              .storeLimit);
-                                                  await _controller
-                                                      .productDetail(
-                                                          productId: args);
-                                                  await _controller
-                                                      .getCartItems(
-                                                          isLoading: true);
-                                                  _controller.update();
-                                                }
-                                              }
-                                            : null,
+                                    '${_controller.productDetailsResponse?.data?[0].cartQuantity}' !=
+                                        '0'
+                                        ? () async {
+                                      var res = await _controller
+                                          .updateItemInCart(
+                                          productId: '$args',
+                                          cartQuantity:
+                                          _controller.productDetailsResponse?.data?[0].cartQuantity ?? 0,
+                                          isAddition: false);
+                                      if (res == true) {
+                                        await _controller
+                                            .getStorePageList(
+                                            searchText: '',
+                                            isLoading: true,
+                                            skip: _controller
+                                                .storeSkip,
+                                            limit: _controller
+                                                .storeLimit);
+                                        await _controller
+                                            .productDetail(
+                                            productId: args);
+                                        await _controller
+                                            .getCartItems(
+                                            isLoading: true);
+                                        _controller.update();
+                                      }
+                                    }
+                                        : null,
                                     child: SizedBox(
                                       width: Dimens.fifteen,
                                       height: Dimens.fifteen,
@@ -229,7 +229,7 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                                       var res = await _controller.updateItemInCart(
                                           productId: '$args',
                                           cartQuantity:
-                                              '${_controller.productDetailsResponse?.data?[0].cartQuantity}',
+                                          _controller.productDetailsResponse?.data?[0].cartQuantity ?? 0,
                                           isAddition: true);
                                       if (res == true) {
                                         await _controller.getStorePageList(
@@ -261,34 +261,34 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                 ),
                 Dimens.boxHeight5,
                 '${_controller.productDetailsResponse?.data?[0].cartQuantity}' ==
-                        '0'
+                    '0'
                     ? Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: Dimens.percentWidth(.55),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                width: Dimens.percentWidth(.55),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Icons.info_outline,
-                                      color: Colors.red,
-                                      size: Dimens.fifteen,
-                                    ),
-                                    Dimens.boxWidth5,
-                                    Text(
-                                      StringConstants.selectQuantity,
-                                      style: Styles.lightRed12,
-                                    ),
-                                  ],
-                                ),
+                              Icon(
+                                Icons.info_outline,
+                                color: Colors.red,
+                                size: Dimens.fifteen,
+                              ),
+                              Dimens.boxWidth5,
+                              Text(
+                                StringConstants.selectQuantity,
+                                style: Styles.lightRed12,
                               ),
                             ],
                           ),
-                        ],
-                      )
+                        ),
+                      ],
+                    ),
+                  ],
+                )
                     : Dimens.box0,
                 Dimens.boxHeight10,
                 Divider(
@@ -408,55 +408,56 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                   ),
                 ),
                 '${_controller.productDetailsResponse?.data?[0].cartQuantity}' !=
-                        '0'
+                    '0'
                     ? Padding(
-                        padding: Dimens.edgeInsets20,
-                        child: InkWell(
-                          onTap: () async {
-                            var list = <dynamic>[];
-                            for (var i = 0;
-                                i < _controller.cartResponse!.data!.length;
-                                i++) {
-                              list.add({
-                                'productId': num.parse(
-                                    '${_controller.cartResponse?.data?[i].productId}'),
-                                'quantity': num.parse(
-                                    '${_controller.cartResponse?.data?[i].quantity}')
-                              });
-                            }
-                            await _controller.getCartTotals(
-                                loading: true, couponCode: null, list: list);
-                            RouteManagement.goToCartAndCheckout();
-                          },
-                          child: Container(
-                            width: Dimens.percentWidth(1),
-                            height: Dimens.fifty,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(Dimens.ten),
-                              color: AppColors.primaryColor,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  AssetConstants.cartIcon,
-                                  color: Colors.white,
-                                  width: Dimens.twenty,
-                                  height: Dimens.twenty,
-                                ),
-                                Dimens.boxWidth10,
-                                Text(
-                                  '${StringConstants.goToCart} (${_controller.cartResponse?.data?.length})',
-                                  style: Styles.whiteLight14,
-                                ),
-                              ],
-                            ),
+                  padding: Dimens.edgeInsets20,
+                  child: InkWell(
+                    onTap: () async {
+                      var list = <dynamic>[];
+                      for (var i = 0;
+                      i < _controller.cartResponse!.data!.length;
+                      i++) {
+                        list.add({
+                          'productId': num.parse(
+                              '${_controller.cartResponse?.data?[i].productId}'),
+                          'quantity': num.parse(
+                              '${_controller.cartResponse?.data?[i].quantity}')
+                        });
+                      }
+                      await _controller.getCartTotals(
+                          loading: true, couponCode: null, list: list);
+                      RouteManagement.goToCartAndCheckout();
+                    },
+                    child: Container(
+                      width: Dimens.percentWidth(1),
+                      height: Dimens.fifty,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimens.ten),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            AssetConstants.cartIcon,
+                            color: Colors.white,
+                            width: Dimens.twenty,
+                            height: Dimens.twenty,
                           ),
-                        ),
-                      )
+                          Dimens.boxWidth10,
+                          Text(
+                            '${StringConstants.goToCart} (${_controller.cartResponse?.data?.length})',
+                            style: Styles.whiteLight14,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
                     : Dimens.box0,
               ],
-            ),
+            ),)
+
           ),
         ),
       );

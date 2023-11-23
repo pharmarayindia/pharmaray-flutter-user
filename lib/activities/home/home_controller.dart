@@ -83,13 +83,7 @@ class HomeController extends GetxController {
       case 1:
         return ReminderWidget();
       case 2:
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              StoreWidget(),
-            ],
-          ),
-        );
+        return SearchMedicines();
       case 3:
         return SingleChildScrollView(
           child: Column(
@@ -280,7 +274,7 @@ class HomeController extends GetxController {
     var res = await apiClient.transactions(
         loading: loading,
         orderId: int.parse('${createOrderResponse?.data?.order?.id}'),
-        amount: num.parse('${cartTotalResponse?.data?.grandTotal}'),
+        amount: cartTotalResponse?.data?.grandTotal ?? 0,
         paymentMode: paymentMode,
         paymentResponse: paymentResponse);
     if (!res.hasError) {
@@ -298,7 +292,7 @@ class HomeController extends GetxController {
     var res = await apiClient.completeOrder(
         loading: loading,
         orderId: int.parse('${createOrderResponse?.data?.order?.id}'),
-        amount: num.parse('${cartTotalResponse?.data?.grandTotal}'),
+        amount: cartTotalResponse?.data?.grandTotal ?? 0,
         paymentMode: paymentMode,
         paymentResponse: paymentResponse);
     if (!res.hasError) {
@@ -418,7 +412,7 @@ class HomeController extends GetxController {
   Future<void> postRecentlyViewed(
       {required bool isLoading, required String productId}) async {
     var res = await apiClient.addToRecentlyViewed(
-        productId: num.parse(productId), isLoading: isLoading);
+        productId: productId, isLoading: isLoading);
     if (!res.hasError) {
       await recentlyViewed(loading: false);
     }
@@ -450,6 +444,7 @@ class HomeController extends GetxController {
     if (!res.hasError) {
       var data = searchMedicineResponseFromJson(res.data);
       searchMedicineResponse = data;
+      print(data);
     }
     update();
   }
@@ -548,14 +543,14 @@ class HomeController extends GetxController {
 
   Future<bool> updateItemInCart(
       {required String productId,
-      required String cartQuantity,
+      required int cartQuantity,
       required bool isAddition}) async {
     debugPrint('QUANTITY $cartQuantity');
     var res = await apiClient.updateCartItems(
-        productId: num.parse(productId),
+        productId: productId,
         quantity: isAddition
-            ? num.parse(cartQuantity) + 1
-            : num.parse(cartQuantity) - 1,
+            ? cartQuantity + 1
+            : cartQuantity - 1,
         isLoading: true);
     if (!res.hasError) {
       return true;

@@ -97,8 +97,8 @@ class HomeWidget extends StatelessWidget {
                                     i < _controller.cartResponse!.data!.length;
                                     i++) {
                                   list.add({
-                                    'productId': num.parse(
-                                        '${_controller.cartResponse?.data?[i].productId}'),
+                                    'productId':
+                                        '${_controller.cartResponse?.data?[i].productId}',
                                     'quantity': num.parse(
                                         '${_controller.cartResponse?.data?[i].quantity}')
                                   });
@@ -194,8 +194,8 @@ class HomeWidget extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          _controller.selectedIndex = 2;
-                          _controller.update();
+                          _controller.searchMedicineResponse = null;
+                          RouteManagement.goToSearchMedicines();
                         },
                         child: Container(
                           height: Dimens.ninety,
@@ -217,7 +217,7 @@ class HomeWidget extends StatelessWidget {
                                   height: Dimens.fourty,
                                 ),
                                 Text(
-                                  StringConstants.store,
+                                  StringConstants.searchMedicines,
                                   style: Styles.darkGreen16,
                                 ),
                               ],
@@ -275,7 +275,7 @@ class HomeWidget extends StatelessWidget {
                       color: AppColors.searchFieldInnerColor,
                     ),
                     child: Padding(
-                      padding: Dimens.edgeInsets10,
+                      padding: Dimens.edgeInsets8,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -613,8 +613,8 @@ class HomeWidget extends StatelessWidget {
                                                     ],
                                                   ),
                                                   const Spacer(),
-                                                  '${_controller.recentlyViewedResponse[index].cartQuantity}' ==
-                                                          '0'
+                                                  _controller.recentlyViewedResponse[index].cartQuantity ==
+                                                          0
                                                       ? InkWell(
                                                           onTap: () async {
                                                             var res = await _controller
@@ -622,7 +622,7 @@ class HomeWidget extends StatelessWidget {
                                                                     productId:
                                                                         '${_controller.recentlyViewedResponse[index].productId}',
                                                                     cartQuantity:
-                                                                        '${_controller.recentlyViewedResponse[index].cartQuantity}',
+                                                                        _controller.recentlyViewedResponse[index].cartQuantity ?? 0,
                                                                     isAddition:
                                                                         true);
                                                             if (res == true) {
@@ -680,7 +680,7 @@ class HomeWidget extends StatelessWidget {
                                                                       productId:
                                                                           '${_controller.recentlyViewedResponse[index].productId}',
                                                                       cartQuantity:
-                                                                          '${_controller.recentlyViewedResponse[index].cartQuantity}',
+                                                                          _controller.recentlyViewedResponse[index].cartQuantity ?? 0,
                                                                       isAddition:
                                                                           false);
                                                                   if (res ==
@@ -703,7 +703,7 @@ class HomeWidget extends StatelessWidget {
                                                                         .minus,
                                                                     width: Dimens
                                                                         .fifteen,
-                                                                    color: '${_controller.recentlyViewedResponse[index].cartQuantity}' == '0'
+                                                                    color: _controller.recentlyViewedResponse[index].cartQuantity == 0
                                                                         ? Colors
                                                                             .grey
                                                                         : Colors
@@ -725,7 +725,7 @@ class HomeWidget extends StatelessWidget {
                                                                       productId:
                                                                           '${_controller.recentlyViewedResponse[index].productId}',
                                                                       cartQuantity:
-                                                                          '${_controller.recentlyViewedResponse[index].cartQuantity}',
+                                                                          _controller.recentlyViewedResponse[index].cartQuantity ?? 0 ,
                                                                       isAddition:
                                                                           true);
                                                                   if (res ==

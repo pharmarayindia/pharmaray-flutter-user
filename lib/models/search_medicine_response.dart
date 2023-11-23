@@ -3,7 +3,7 @@
 //     final searchMedicineResponse = searchMedicineResponseFromJson(jsonString);
 
 import 'dart:convert';
-
+import 'package:get/get.dart';
 SearchMedicineResponse searchMedicineResponseFromJson(String str) =>
     SearchMedicineResponse.fromJson(json.decode(str) as Map<String, dynamic>);
 
@@ -72,6 +72,7 @@ class Source {
     this.text,
     this.productId,
     this.productName,
+    this.medicine_image,
     this.productOtherName,
     this.skuCode,
     this.parentSkuCode,
@@ -101,6 +102,7 @@ class Source {
         text: json['text'] as String? ?? '',
         productId: json['productId'] as String? ?? '',
         productName: json['productName'] as String? ?? '',
+    medicine_image: json['medicine_image'] as String? ?? '',
         productOtherName: json['productOtherName'] as String? ?? '',
         skuCode: json['skuCode'] as String? ?? '',
         parentSkuCode: json['parentSkuCode'] as String? ?? '',
@@ -112,9 +114,9 @@ class Source {
         igstNumber: json['igstNumber'] as String? ?? '',
         hsnNumber: json['hsnNumber'] as String? ?? '',
         availableQuantity: json['availableQuantity'] as num? ?? 0,
-        cartQuantity: json['cartQuantity'] as num? ?? 0,
+        cartQuantity: json['cartQuantity'] as int? ?? 0,
         status: json['status'] as num? ?? 0,
-        quantity: json['quantity'] as num? ?? 0,
+        quantity: json['quantity'] as int? ?? 0,
         tags: json['tags'] != null
             ? List<String>.from((json['tags'] as List<dynamic>? ?? <dynamic>[])
                 .map<dynamic>((dynamic x) => x))
@@ -149,6 +151,7 @@ class Source {
   final String? text;
   final String? productId;
   final String? productName;
+  final String? medicine_image;
   final String? productOtherName;
   final String? skuCode;
   final String? parentSkuCode;
@@ -161,8 +164,8 @@ class Source {
   final String? hsnNumber;
   final num? availableQuantity;
   final num? status;
-  num? cartQuantity;
-  num? quantity;
+  int? cartQuantity;
+  int? quantity;
   final List<String>? tags;
   final List<String>? usage;
   final String? brand;
@@ -178,6 +181,7 @@ class Source {
         'text': text,
         'productId': productId,
         'productName': productName,
+        'medicine_image': medicine_image,
         'productOtherName': productOtherName,
         'skuCode': skuCode,
         'parentSkuCode': parentSkuCode,

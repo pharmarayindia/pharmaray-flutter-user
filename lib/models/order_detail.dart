@@ -61,7 +61,7 @@ class OrderDetailData {
         subTotal: json['subTotal'] as num? ?? 0,
         discountTotal: json['discountTotal'] as num? ?? 0,
         code: json['code'] as String? ?? '',
-        shippingCharges: json['shippingCharges'] as String? ?? '',
+        shippingCharges: json['shippingCharges'] as int? ?? 0,
         status: json['status'] as String? ?? '',
         createdAt: json['createdAt'] as String? ?? '',
         orderAddress: json['orderAddress'] != null

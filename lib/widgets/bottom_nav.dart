@@ -72,7 +72,7 @@ class BottomNavBarWidget extends StatelessWidget {
                   color: AppColors.greyLight,
                 ),
               ),
-              label: StringConstants.store,
+              label: "Search",
               activeIcon: SizedBox(
                 width: Dimens.twenty,
                 height: Dimens.twenty,

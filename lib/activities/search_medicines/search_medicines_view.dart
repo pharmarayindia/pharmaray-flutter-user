@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pharmaray/lib.dart';
 
 class SearchMedicines extends StatefulWidget {
@@ -299,7 +300,7 @@ class _SearchMedicinesState extends State<SearchMedicines> {
                                                                     productId:
                                                                         '${_controller.searchMedicineResponse?.data?[index].source?.productId}',
                                                                     cartQuantity:
-                                                                        '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}',
+                                                                        _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                                                     isAddition:
                                                                         false);
                                                             if (res == true) {
@@ -350,7 +351,7 @@ class _SearchMedicinesState extends State<SearchMedicines> {
                                                       productId:
                                                           '${_controller.searchMedicineResponse?.data?[index].source?.productId}',
                                                       cartQuantity:
-                                                          '${_controller.searchMedicineResponse?.data?[index].source?.cartQuantity}',
+                                                          _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                                       isAddition: true);
                                                   if (res == true) {
                                                     await _controller
@@ -393,7 +394,7 @@ class _SearchMedicinesState extends State<SearchMedicines> {
               ),
             ),
             bottomNavigationBar: Padding(
-              padding: Dimens.edgeInsets20,
+              padding: Dimens.edgeInsets15,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -412,17 +413,19 @@ class _SearchMedicinesState extends State<SearchMedicines> {
                           onTap: () async {
                             var list = <dynamic>[];
                             for (var i = 0;
-                                i < _controller.cartResponse!.data!.length;
-                                i++) {
+                            i < _controller.cartResponse!.data!.length;
+                            i++) {
                               list.add({
-                                'productId': num.parse(
-                                    '${_controller.cartResponse?.data?[i].productId}'),
+                                'productId':
+                                '${_controller.cartResponse?.data?[i].productId}',
                                 'quantity': num.parse(
                                     '${_controller.cartResponse?.data?[i].quantity}')
                               });
                             }
                             await _controller.getCartTotals(
-                                loading: true, couponCode: null, list: list);
+                                loading: true,
+                                couponCode: null,
+                                list: list);
                             RouteManagement.goToCartAndCheckout();
                           },
                           child: Container(

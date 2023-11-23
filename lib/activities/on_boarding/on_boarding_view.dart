@@ -62,7 +62,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       activeSize: Size(Dimens.five, Dimens.five),
                     ),
                     dotsCount: _controller.onBoardingItemList.length,
-                    position: _controller.currentOnBoardingPage.toDouble(),
+                    position: _controller.currentOnBoardingPage.toInt(),
                   ),
                   Dimens.boxHeight50,
                   Padding(

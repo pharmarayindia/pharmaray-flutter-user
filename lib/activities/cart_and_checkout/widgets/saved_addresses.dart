@@ -200,6 +200,7 @@ class _SavedAddressesState extends State<SavedAddresses> {
                                 width: Dimens.twentyFour,
                                 height: Dimens.twentyFour,
                                 child: Radio(
+                                  activeColor: AppColors.primaryColor,
                                   value: index,
                                   groupValue: homeController.selectedAddress,
                                   onChanged: (value) {
@@ -268,8 +269,8 @@ class _SavedAddressesState extends State<SavedAddresses> {
                           i < homeController.cartResponse!.data!.length;
                           i++) {
                         list.add({
-                          'productId': num.parse(
-                              '${homeController.cartResponse?.data?[i].productId}'),
+                          'productId':
+                              '${homeController.cartResponse?.data?[i].productId}',
                           'quantity': num.parse(
                               '${homeController.cartResponse?.data?[i].quantity}')
                         });

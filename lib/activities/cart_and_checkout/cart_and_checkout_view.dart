@@ -62,8 +62,8 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                           child: SizedBox(
                                             width: Dimens.oneHundredTwenty,
                                             height: Dimens.oneHundredTwenty,
-                                            child: Image.asset(
-                                                AssetConstants.dummy4),
+                                            child: Image.network('${homeController.cartResponse?.data?[index].medicine_image}'
+                                                ),
                                           ),
                                         ),
                                       ),
@@ -87,7 +87,7 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            '₹${homeController.cartResponse?.data?[index].listedPrice}',
+                                            '₹${homeController.cartResponse?.data?[index].listedPrice?.toStringAsFixed(2)}',
                                             style: Styles.boldBlack14w700,
                                           ),
                                           // Dimens.boxWidth20,
@@ -136,7 +136,7 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                                     productId:
                                                         '${homeController.cartResponse?.data?[index].productId}',
                                                     cartQuantity:
-                                                        '${homeController.cartResponse?.data?[index].quantity}',
+                                                        homeController.cartResponse?.data![index].quantity ?? 0,
                                                     isAddition: false);
                                                 await homeController
                                                     .getCartItems(
@@ -150,8 +150,8 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                                             .length;
                                                     i++) {
                                                   list.add({
-                                                    'productId': num.parse(
-                                                        '${homeController.cartResponse?.data?[i].productId}'),
+                                                    'productId':
+                                                        '${homeController.cartResponse?.data?[i].productId}',
                                                     'quantity': num.parse(
                                                         '${homeController.cartResponse?.data?[i].quantity}')
                                                   });
@@ -189,7 +189,7 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                                     productId:
                                                         '${homeController.cartResponse?.data?[index].productId}',
                                                     cartQuantity:
-                                                        '${homeController.cartResponse?.data?[index].quantity}',
+                                                        homeController.cartResponse?.data?[index].quantity ?? 0,
                                                     isAddition: true);
                                                 await homeController
                                                     .getCartItems(
@@ -203,10 +203,9 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                                             .length;
                                                     i++) {
                                                   list.add({
-                                                    'productId': num.parse(
-                                                        '${homeController.cartResponse?.data?[i].productId}'),
-                                                    'quantity': num.parse(
-                                                        '${homeController.cartResponse?.data?[i].quantity}')
+                                                    'productId':
+                                                        '${homeController.cartResponse?.data?[i].productId}',
+                                                    'quantity': homeController.cartResponse?.data?[i].quantity
                                                   });
                                                 }
                                                 await homeController
@@ -234,7 +233,7 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                 await homeController.updateItemInCart(
                                     productId:
                                         '${homeController.cartResponse?.data?[index].productId}',
-                                    cartQuantity: '1',
+                                    cartQuantity: 1,
                                     isAddition: false);
                                 await homeController.getCartItems(
                                     isLoading: true);
@@ -245,8 +244,8 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                             .cartResponse!.data!.length;
                                     i++) {
                                   list.add({
-                                    'productId': num.parse(
-                                        '${homeController.cartResponse?.data?[i].productId}'),
+                                    'productId':
+                                        '${homeController.cartResponse?.data?[i].productId}',
                                     'quantity': num.parse(
                                         '${homeController.cartResponse?.data?[i].quantity}')
                                   });
@@ -324,8 +323,8 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                               .cartResponse!.data!.length;
                                       i++) {
                                     list.add({
-                                      'productId': num.parse(
-                                          '${homeController.cartResponse?.data?[i].productId}'),
+                                      'productId':
+                                          '${homeController.cartResponse?.data?[i].productId}',
                                       'quantity': num.parse(
                                           '${homeController.cartResponse?.data?[i].quantity}')
                                     });
