@@ -249,11 +249,13 @@ class _SearchMedicinesState extends State<SearchMedicines> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+                                              (_controller.searchMedicineResponse?.data?[index].source?.medicine_image ?? "").isEmpty || _controller.searchMedicineResponse?.data?[index].source?.medicine_image  == null  ?
                                               Image.asset(
                                                 AssetConstants.dummy4,
                                                 width: Dimens.twenty,
                                                 height: Dimens.twenty,
-                                              ),
+                                              ) : Image.network(
+                                            '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}'),
                                               Dimens.boxWidth10,
                                               Column(
                                                 crossAxisAlignment:
