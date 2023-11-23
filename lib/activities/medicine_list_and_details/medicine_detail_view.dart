@@ -130,7 +130,7 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                           itemBuilder: (context, index) => SizedBox(
                             width: Dimens.percentWidth(.7),
                             height: Dimens.percentHeight(.3),
-                            child: Image.network(AssetConstants.dummy3),
+                            child: (_controller.cartResponse?.data?[index].medicine_image ?? "").isEmpty || (_controller.cartResponse?.data?[index].medicine_image == null) ? Image.asset(AssetConstants.dummy3) : Image.network('${_controller.cartResponse?.data?[index].medicine_image}'),
                           ),
                           onPageChanged: (value) {
                             _controller.currentItemPage = value;
