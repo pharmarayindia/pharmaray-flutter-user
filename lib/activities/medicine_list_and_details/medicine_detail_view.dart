@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -130,7 +131,13 @@ class _MedicineDetailViewState extends State<MedicineDetailView> {
                           itemBuilder: (context, index) => SizedBox(
                             width: Dimens.percentWidth(.7),
                             height: Dimens.percentHeight(.3),
-                            child: (_controller.cartResponse?.data?[index].medicine_image ?? "").isEmpty || (_controller.cartResponse?.data?[index].medicine_image == null) ? Image.asset(AssetConstants.dummy3) : Image.network('${_controller.cartResponse?.data?[index].medicine_image}'),
+                            child: (_controller.cartResponse?.data?[index].medicine_image ?? "").isEmpty || (_controller.cartResponse?.data?[index].medicine_image == null) ? Image.asset(AssetConstants.dummy3) :
+                            CachedNetworkImage(imageUrl: '${_controller.cartResponse?.data?[index].medicine_image}',width: Dimens.twenty,
+                              height: Dimens.twenty,placeholder: (context, url) => getImage(context,AssetConstants.dummy4),errorWidget: (context, url, error) => SizedBox(
+                                width: Dimens.twenty,
+                                height: Dimens.twenty,
+                                child: getImage(context,AssetConstants.dummy4),
+                              ),),
                           ),
                           onPageChanged: (value) {
                             _controller.currentItemPage = value;

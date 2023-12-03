@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
@@ -111,11 +112,15 @@ class _OrderSummaryState extends State<OrderSummary> {
                                                   SizedBox(
                                                     width: Dimens.sixty,
                                                     height: Dimens.sixty,
-                                                    child: _controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image == null || (_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image ?? "").isEmpty ? Image.asset(AssetConstants.dummy4) : Image.network(
-                                                      '${_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image}',
-                                                      width: Dimens.fifteen,
-                                                      height: Dimens.fifteen,
-                                                    ),
+                                                    child: (_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image == null )|| ((_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image ?? "").isEmpty) ? Image.asset(AssetConstants.dummy4) :
+
+                                                    CachedNetworkImage(imageUrl: '${_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image}',width: Dimens.twenty,
+                                                      height: Dimens.twenty,placeholder: (context, url) => getImage(context,AssetConstants.dummy4),errorWidget: (context, url, error) => SizedBox(
+                                                        width: Dimens.twenty,
+                                                        height: Dimens.twenty,
+                                                        child: getImage(context,AssetConstants.dummy4),
+                                                      ),),
+
                                                   ),
                                                   Dimens.boxWidth10,
                                                   Column(
@@ -271,7 +276,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                             InkWell(
                               onTap: () {
                                 Utility.closeSnackbar();
-                                Phoenix.rebirth(context);
+                                // Phoenix.rebirth(context);
                                 RouteManagement.goToHome();
                               },
                               child: Container(

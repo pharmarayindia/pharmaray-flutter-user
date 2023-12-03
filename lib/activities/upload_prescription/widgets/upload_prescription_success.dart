@@ -39,10 +39,7 @@ class UploadPrescriptionSuccess extends StatelessWidget {
               Padding(
                 padding: Dimens.edgeInsets20,
                 child: InkWell(
-                  onTap: () {
-                    Phoenix.rebirth(context);
-                    RouteManagement.goToHome();
-                  },
+                  onTap: RouteManagement.goToHome,
                   child: Container(
                     width: Dimens.percentWidth(1),
                     height: Dimens.fifty,

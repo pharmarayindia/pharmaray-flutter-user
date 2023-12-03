@@ -438,7 +438,7 @@ class ApiClient {
 
   Future<ResponseModel> transactions(
       {required bool loading,
-      required int orderId,
+      required num orderId,
       required num amount,
       required int paymentMode,
       required dynamic paymentResponse}) async {

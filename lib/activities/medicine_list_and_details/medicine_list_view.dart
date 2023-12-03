@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmaray/lib.dart';
@@ -178,11 +179,14 @@ class _MedicineListState extends State<MedicineList> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Image.network(
-                                        '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}',
-                                        width: Dimens.twenty,
-                                        height: Dimens.twenty,
-                                      ),
+                                      (_controller.searchMedicineResponse?.data?[index].source?.medicine_image ?? "").isEmpty || (_controller.searchMedicineResponse?.data?[index].source?.medicine_image == null) ? Image.asset(AssetConstants.dummy3) :
+                                      CachedNetworkImage(imageUrl: '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}',width: Dimens.twenty,
+                                        height: Dimens.twenty,placeholder: (context, url) => getImage(context,AssetConstants.dummy4),
+                                        errorWidget: (context, url, error) => SizedBox(
+                                          width: Dimens.twenty,
+                                          height: Dimens.twenty,
+                                          child: getImage(context,AssetConstants.dummy4),
+                                        ),),
                                       Dimens.boxWidth10,
                                       Column(
                                         crossAxisAlignment:
@@ -228,6 +232,9 @@ class _MedicineListState extends State<MedicineList> {
                                                                 _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                                             isAddition: false);
                                                     if (res == true) {
+                                                      setState(() {
+
+                                                      });
                                                       await _controller
                                                           .getCartItems(
                                                               isLoading: true);
@@ -278,6 +285,9 @@ class _MedicineListState extends State<MedicineList> {
                                                   _controller.searchMedicineResponse?.data?[index].source?.cartQuantity ?? 0,
                                               isAddition: true);
                                           if (res == true) {
+                                            setState(() {
+
+                                            });
                                             await _controller.getCartItems(
                                                 isLoading: true);
                                             await _controller
@@ -290,6 +300,7 @@ class _MedicineListState extends State<MedicineList> {
                                                 searchText: '',
                                                 isSearchMedicine: false,
                                                 widgetId: _controller.widgetId);
+
                                           }
                                         },
                                         child: Image.asset(

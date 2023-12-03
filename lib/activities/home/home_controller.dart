@@ -273,7 +273,7 @@ class HomeController extends GetxController {
       required int paymentMode}) async {
     var res = await apiClient.transactions(
         loading: loading,
-        orderId: int.parse('${createOrderResponse?.data?.order?.id}'),
+        orderId: createOrderResponse?.data?.order?.id ?? 0,
         amount: cartTotalResponse?.data?.grandTotal ?? 0,
         paymentMode: paymentMode,
         paymentResponse: paymentResponse);

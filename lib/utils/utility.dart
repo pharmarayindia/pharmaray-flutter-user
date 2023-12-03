@@ -239,3 +239,4 @@ abstract class Utility {
         '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}';
   }
 }
+Widget getImage(BuildContext context, String imageUrl) => Image.asset(imageUrl);

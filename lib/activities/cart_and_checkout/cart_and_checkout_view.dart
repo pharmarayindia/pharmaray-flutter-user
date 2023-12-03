@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,11 +60,19 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                               BorderRadius.circular(Dimens.ten),
                                         ),
                                         child: Center(
+
+
                                           child: SizedBox(
                                             width: Dimens.oneHundredTwenty,
                                             height: Dimens.oneHundredTwenty,
-                                            child: Image.network('${homeController.cartResponse?.data?[index].medicine_image}'
-                                                ),
+                                            child: (homeController.cartResponse?.data?[index].medicine_image ?? "").isEmpty || (homeController.cartResponse?.data?[index].medicine_image == null)
+                                                ? Image.asset(AssetConstants.dummy3) :
+                                            CachedNetworkImage(imageUrl: '${homeController.cartResponse?.data?[index].medicine_image}',
+
+                                              errorWidget: (context, url, error) => SizedBox(
+                                                child: getImage(context,AssetConstants.dummy4),
+                                              ),),
+
                                           ),
                                         ),
                                       ),
@@ -587,6 +596,8 @@ class _CartAndCheckoutViewState extends State<CartAndCheckoutView> {
                                               title: 'Labdhi Medical',
                                               subTitle:
                                                   '2/27 -B Viranager Socitey, Bhimjipura, Nava Vadaj, Ahmedabad',
+                                              isFromPickup: true,
+                                              deliveryCharge: homeController.cartTotalResponse?.data!.shippingCharges ?? 0,
                                               couponCode: isCouponValid
                                                   ? textEditingController.text
                                                   : '');

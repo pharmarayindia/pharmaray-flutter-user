@@ -11,7 +11,12 @@ class SelectPaymentMethod extends StatefulWidget {
 }
 
 class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
+  var args = Get.arguments as Map<String, dynamic>;
   int selectedPaymentMethod = 0;
+  bool isFromPickup = false;
+  num deliveryCharges = 0;
+  num lastAmountWithoutCharges = 0;
+  String coupenCode = "";
   var homeController = Get.find<HomeController>();
   List<String> listOfMethods = [
     StringConstants.online,
@@ -21,30 +26,57 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
 
   @override
   void initState() {
+    isFromPickup = args['isFromPickup'] as bool? ?? false;
+    deliveryCharges = args['deliveryCharge'] as num? ?? 0;
+    coupenCode = args['coupenCode'] as String? ?? "";
+
+    lastAmountWithoutCharges = double.parse(homeController.cartTotalResponse!.data!.grandTotal.toString()) - double.parse(deliveryCharges.toString());
     razorpay = Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
+
     super.initState();
   }
 
   void handlePaymentSuccess(PaymentSuccessResponse response) async {
     Utility.closeDialog();
-    var res = await homeController.transactions(
+    var list = <dynamic>[];
+    for (var i = 0;
+    i < homeController.cartResponse!.data!.length;
+    i++) {
+      list.add({
+        'productId':
+        '${homeController.cartResponse?.data?[i].productId}',
+        'quantity': num.parse(
+            '${homeController.cartResponse?.data?[i].quantity}')
+      });
+    }
+    var res = await homeController.createOrder(
         loading: true,
-        paymentResponse: response.toString(),
-        paymentMode: selectedPaymentMethod);
+        cartItems: list,
+        orderPlacedType: isFromPickup ? 'self/pickup' : 'Home',
+        userAddressId: int.parse(
+            '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
+        couponCode: coupenCode == null ? null : coupenCode);
     if (res == true) {
-      var res1 = await homeController.completeOrder(
+      var res = await homeController.transactions(
           loading: true,
           paymentResponse: response.toString(),
           paymentMode: selectedPaymentMethod);
-      if (res1 !=  null) {
-        dynamic data = jsonDecode(res1);
-        RouteManagement.goToOrderSuccess(
-            orderId: (data['data']['id']).toString());
+      if (res == true) {
+        var res1 = await homeController.completeOrder(
+            loading: true,
+            paymentResponse: response.toString(),
+            paymentMode: selectedPaymentMethod);
+        if (res1 !=  null) {
+          dynamic data = jsonDecode(res1);
+          RouteManagement.goToOrderSuccess(
+              orderId: (data['data']['id']).toString());
+        }
       }
     }
+
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
@@ -60,7 +92,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     var options = {
       'key': AppConstants.razorPayKey,
       'amount': (num.parse(
-              homeController.cartTotalResponse!.data!.grandTotal.toString()) *
+          lastAmountWithoutCharges.toString()) *
           100).floor(),
       'name': 'Pharmaray',
       'description': description,
@@ -172,20 +204,39 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                     Utility.showLoadingDialog();
                     openCheckout(description: StringConstants.online);
                   } else {
-                    var res = await homeController.transactions(
+                    var list = <dynamic>[];
+                    for (var i = 0;
+                    i < homeController.cartResponse!.data!.length;
+                    i++) {
+                      list.add({
+                        'productId':
+                        '${homeController.cartResponse?.data?[i].productId}',
+                        'quantity': num.parse(
+                            '${homeController.cartResponse?.data?[i].quantity}')
+                      });
+                    }
+                    var res = await homeController.createOrder(
                         loading: true,
-                        paymentResponse: '',
-                        paymentMode: selectedPaymentMethod);
+                        cartItems: list,
+                        orderPlacedType: 'Home',
+                        userAddressId: int.parse(
+                            '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
+                        couponCode: coupenCode == null ? null : coupenCode);
                     if (res == true) {
-                      var res1 = await homeController.completeOrder(
+                      var res = await homeController.transactions(
                           loading: true,
                           paymentResponse: '',
                           paymentMode: selectedPaymentMethod);
-                      print(res1);
-                      if (res1 != null) {
-                        dynamic data = jsonDecode(res1);
-                        RouteManagement.goToOrderSuccess(
-                            orderId: (data['data']['id']).toString());
+                      if (res == true) {
+                        var res1 = await homeController.completeOrder(
+                            loading: true,
+                            paymentResponse: '',
+                            paymentMode: selectedPaymentMethod);
+                        if (res1 !=  null) {
+                          dynamic data = jsonDecode(res1);
+                          RouteManagement.goToOrderSuccess(
+                              orderId: (data['data']['id']).toString());
+                        }
                       }
                     }
                   }

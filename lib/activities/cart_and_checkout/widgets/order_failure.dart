@@ -68,8 +68,10 @@ class OrderFailure extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Phoenix.rebirth(context);
-                          RouteManagement.goToHome();
+                          Get.back<dynamic>();
+                          Get.back<dynamic>();
+                          Get.back<dynamic>();
+
                         },
                         child: Text(
                           StringConstants.goToHome,

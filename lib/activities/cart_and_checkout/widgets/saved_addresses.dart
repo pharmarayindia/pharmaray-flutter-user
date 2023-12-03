@@ -264,27 +264,9 @@ class _SavedAddressesState extends State<SavedAddresses> {
                   padding: Dimens.edgeInsets20_0_20_0,
                   child: InkWell(
                     onTap: () async {
-                      var list = <dynamic>[];
-                      for (var i = 0;
-                          i < homeController.cartResponse!.data!.length;
-                          i++) {
-                        list.add({
-                          'productId':
-                              '${homeController.cartResponse?.data?[i].productId}',
-                          'quantity': num.parse(
-                              '${homeController.cartResponse?.data?[i].quantity}')
-                        });
-                      }
-                      var res = await homeController.createOrder(
-                          loading: true,
-                          cartItems: list,
-                          orderPlacedType: 'Home',
-                          userAddressId: int.parse(
-                              '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
-                          couponCode: (args.isEmpty) ? null : args);
-                      if (res == true) {
-                        RouteManagement.goToSelectPaymentMethod();
-                      }
+
+                        RouteManagement.goToSelectPaymentMethod(false,0,(args.isEmpty) ? null : args);
+
                     },
                     child: Container(
                       width: Dimens.percentWidth(1),

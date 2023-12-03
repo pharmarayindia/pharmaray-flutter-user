@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -249,13 +250,20 @@ class _SearchMedicinesState extends State<SearchMedicines> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              (_controller.searchMedicineResponse?.data?[index].source?.medicine_image ?? "").isEmpty || _controller.searchMedicineResponse?.data?[index].source?.medicine_image  == null  ?
+                                              ((_controller.searchMedicineResponse?.data?[index].source?.medicine_image ?? "").isEmpty) || (_controller.searchMedicineResponse?.data?[index].source?.medicine_image  == null)  ?
                                               Image.asset(
                                                 AssetConstants.dummy4,
                                                 width: Dimens.twenty,
                                                 height: Dimens.twenty,
-                                              ) : Image.network(
-                                            '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}'),
+                                              ) :
+
+                                                  CachedNetworkImage(imageUrl: '${_controller.searchMedicineResponse?.data?[index].source?.medicine_image}',width: Dimens.twenty,
+                                                    height: Dimens.twenty,placeholder: (context, url) => getImage(context,AssetConstants.dummy4),errorWidget: (context, url, error) => SizedBox(
+                                                      width: Dimens.twenty,
+                                                      height: Dimens.twenty,
+                                                      child: getImage(context,AssetConstants.dummy4),
+                                                    ),)
+                                              ,
                                               Dimens.boxWidth10,
                                               Column(
                                                 crossAxisAlignment:
@@ -462,4 +470,5 @@ class _SearchMedicinesState extends State<SearchMedicines> {
           ),
         ),
       );
+
 }

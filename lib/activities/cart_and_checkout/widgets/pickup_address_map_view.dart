@@ -12,6 +12,8 @@ class _PickupAddressMapViewState extends State<PickupAddressMapView> {
   var args = Get.arguments as Map<String, dynamic>;
   String title = '';
   String subTitle = '';
+  bool isFromPickup = false;
+  num deliveryCharges = 0;
   String? couponCode;
   var homeController = Get.find<HomeController>();
 
@@ -28,6 +30,8 @@ class _PickupAddressMapViewState extends State<PickupAddressMapView> {
     title = args['title'] as String? ?? '';
     subTitle = args['subTitle'] as String? ?? '';
     couponCode = args['couponCode'] as String? ?? '';
+    isFromPickup = args['isFromPickup'] as bool? ?? false;
+    deliveryCharges = args['deliveryCharge'] as num? ?? 0;
     super.initState();
   }
 
@@ -83,27 +87,9 @@ class _PickupAddressMapViewState extends State<PickupAddressMapView> {
                 padding: Dimens.edgeInsets10_0_10_0,
                 buttonColor: AppColors.primaryColor,
                 onTap: () async {
-                  var list = <dynamic>[];
-                  for (var i = 0;
-                      i < homeController.cartResponse!.data!.length;
-                      i++) {
-                    list.add({
-                      'productId':
-                          '${homeController.cartResponse?.data?[i].productId}',
-                      'quantity': num.parse(
-                          '${homeController.cartResponse?.data?[i].quantity}')
-                    });
-                  }
-                  var res = await homeController.createOrder(
-                      loading: true,
-                      cartItems: list,
-                      orderPlacedType: 'Self/pickup',
-                      userAddressId: int.parse(
-                          '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
-                      couponCode: couponCode == null ? null : couponCode);
-                  if (res == true) {
-                    RouteManagement.goToSelectPaymentMethod();
-                  }
+
+                    RouteManagement.goToSelectPaymentMethod(isFromPickup,deliveryCharges,couponCode == null ? null : couponCode);
+
                 },
               ),
             )

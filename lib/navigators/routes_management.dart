@@ -50,9 +50,13 @@ abstract class RouteManagement {
     );
   }
 
-  static void goToSelectPaymentMethod() {
+  static void goToSelectPaymentMethod(bool isFromPickup,num amount, String? coupenCode) {
     Get.toNamed<void>(
-      Routes.selectPaymentMethod,
+      Routes.selectPaymentMethod,arguments: <String, dynamic>{
+      'isFromPickup': isFromPickup,
+      'deliveryCharge': amount,
+      'coupenCode': coupenCode,
+    }
     );
   }
 
@@ -69,10 +73,14 @@ abstract class RouteManagement {
   static void goToPickUpAddressMapView(
       {required String title,
       required String subTitle,
+      required bool isFromPickup,
+      required num deliveryCharge,
       required String? couponCode}) {
     Get.toNamed<void>(Routes.pickUpAddress, arguments: <String, dynamic>{
       'title': title,
       'subTitle': subTitle,
+      'isFromPickup': isFromPickup,
+      'deliveryCharge': deliveryCharge,
       'couponCode': couponCode
     });
   }
