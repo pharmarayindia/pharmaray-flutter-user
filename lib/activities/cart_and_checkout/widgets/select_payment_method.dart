@@ -55,7 +55,7 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
     var res = await homeController.createOrder(
         loading: true,
         cartItems: list,
-        orderPlacedType: isFromPickup ? 'self/pickup' : 'Home',
+        orderPlacedType: isFromPickup ? 'Self/pickup' : 'Home',
         userAddressId: int.parse(
             '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
         couponCode: coupenCode == null ? null : coupenCode);
