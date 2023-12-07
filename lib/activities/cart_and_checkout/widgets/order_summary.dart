@@ -112,9 +112,9 @@ class _OrderSummaryState extends State<OrderSummary> {
                                                   SizedBox(
                                                     width: Dimens.sixty,
                                                     height: Dimens.sixty,
-                                                    child: (_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image == null )|| ((_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image ?? "").isEmpty) ? Image.asset(AssetConstants.dummy4) :
+                                                    child: (_controller.orderDetailsResponse?.data?.orderProducts?[index].medicineImage == null )|| ((_controller.orderDetailsResponse?.data?.orderProducts?[index].medicineImage ?? "").isEmpty) ? Image.asset(AssetConstants.dummy4) :
 
-                                                    CachedNetworkImage(imageUrl: '${_controller.orderDetailsResponse?.data?.orderProducts?[index].medicine_image}',width: Dimens.twenty,
+                                                    CachedNetworkImage(imageUrl: '${_controller.orderDetailsResponse?.data?.orderProducts?[index].medicineImage}',width: Dimens.twenty,
                                                       height: Dimens.twenty,placeholder: (context, url) => getImage(context,AssetConstants.dummy4),errorWidget: (context, url, error) => SizedBox(
                                                         width: Dimens.twenty,
                                                         height: Dimens.twenty,

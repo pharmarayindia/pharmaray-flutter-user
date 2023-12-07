@@ -218,9 +218,9 @@ class _SelectPaymentMethodState extends State<SelectPaymentMethod> {
                     var res = await homeController.createOrder(
                         loading: true,
                         cartItems: list,
-                        orderPlacedType: 'Home',
-                        userAddressId: int.parse(
-                            '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'),
+                        orderPlacedType: isFromPickup ? 'Self/pickup' : 'Home',
+                        userAddressId: (homeController.addressesResponse!.data!.isNotEmpty) ? int.parse(
+                            '${homeController.addressesResponse?.data?[homeController.selectedAddress].id}'): 0,
                         couponCode: coupenCode == null ? null : coupenCode);
                     if (res == true) {
                       var res = await homeController.transactions(

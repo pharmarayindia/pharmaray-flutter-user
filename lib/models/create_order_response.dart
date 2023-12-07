@@ -194,7 +194,7 @@ class OrderAddress {
 class OrderProduct {
   OrderProduct({
     this.productName,
-    this.medicine_image,
+    this.medicineImage,
     this.quantity,
     this.discountedPrice,
     this.listedPrice,
@@ -208,7 +208,7 @@ class OrderProduct {
 
   factory OrderProduct.fromJson(Map<String, dynamic> json) => OrderProduct(
         productName: json['productName'] as String? ?? '',
-    medicine_image: json['medicine_image'] as String? ?? '',
+    medicineImage: json['medicineImage'] as String? ?? '',
         quantity: json['quantity'] as num? ?? 0,
         discountedPrice: json['discountedPrice'] as num? ?? 0,
         listedPrice: json['listedPrice'] as num? ?? 0,
@@ -221,7 +221,7 @@ class OrderProduct {
       );
 
   final String? productName;
-  final String? medicine_image;
+  final String? medicineImage;
 
   final num? quantity;
   final num? discountedPrice;
@@ -235,7 +235,7 @@ class OrderProduct {
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'productName': productName == null ? null : productName,
-        'medicine_image': medicine_image == null ? null : medicine_image,
+        'medicineImage': medicineImage == null ? null : medicineImage,
         'quantity': quantity == null ? null : quantity,
         'discountedPrice': discountedPrice == null ? null : discountedPrice,
         'listedPrice': listedPrice == null ? null : listedPrice,

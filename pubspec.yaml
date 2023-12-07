@@ -13,9 +13,9 @@ dependencies:
   dots_indicator:
   dotted_border: ^2.0.0+2
   email_validator: ^2.0.1
-  firebase_core: ^2.22.0
+  firebase_core: ^2.24.0
   firebase_core_platform_interface: ^5.0.0
-  firebase_messaging: ^14.7.4
+  firebase_messaging: ^14.7.6
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
